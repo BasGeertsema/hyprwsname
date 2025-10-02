@@ -18,12 +18,15 @@ if [ -z "$ACTIVE_WORKSPACE" ]; then
     exit 1
 fi
 
+# Prepend the workspace ID to the name
+FULL_WORKSPACE_NAME="$ACTIVE_WORKSPACE $WORKSPACE_NAME"
+
 # Set the workspace name using hyprctl dispatch
-hyprctl dispatch renameworkspace "$ACTIVE_WORKSPACE" "$WORKSPACE_NAME"
+hyprctl dispatch renameworkspace "$ACTIVE_WORKSPACE" "$FULL_WORKSPACE_NAME"
 
 # Check if the command succeeded
 if [ $? -eq 0 ]; then
-    echo "Workspace $ACTIVE_WORKSPACE renamed to: $WORKSPACE_NAME"
+    echo "Workspace $ACTIVE_WORKSPACE renamed to: $FULL_WORKSPACE_NAME"
 else
     echo "Error: Failed to rename workspace"
     exit 1
